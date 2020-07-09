@@ -1,0 +1,29 @@
+﻿@model VehicleLocation.Models.Vehicle
+<div class="container py-5">
+    <div class="row">
+
+        <div class="col-lg-8 mx-auto text-center">
+
+            <form asp-controller="home" asp-action="adduser" method="post">
+                <div class="form-group">
+                    <label asp-for="IpAddress"></label>
+                    <input class="form-control" asp-for="IpAddress" id="ipaddress" readonly />
+                    <label asp-for="RouteName"></label>
+                    <input class="form-control" asp-for="RouteName" /><br/>
+                    <button class="btn btn-warning btn-lg btn-block font-weight-bold rounded-pill">AddUser</button>
+                </div>
+            </form>
+        </div>
+
+    </div>
+
+</div>
+
+<script type="application/javascript">
+    function getIP(json) {
+        document.getElementById("ipaddress").value = json.ip;
+    }
+
+</script>
+<script type="application/javascript" src="https://api.ipify.org?format=jsonp&callback=getIP"></script>
+

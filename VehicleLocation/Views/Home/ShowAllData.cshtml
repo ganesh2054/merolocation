@@ -1,0 +1,27 @@
+﻿@model IEnumerable<VehicleLocation.Models.Location>
+
+<table border="1">
+    <thead>
+        <tr>
+            <td>longitude</td>
+            <td>latitude</td>
+            <td>IpAddress</td>
+            <td>RouteName</td>
+        </tr>
+        <
+    </thead>
+    <tbody>
+        @foreach (var dataa in Model)
+        {
+            <tr>
+                <td>@dataa.longitude</td>
+                <td>@dataa.latitude</td>
+                <td>@dataa.IpAddress</td>
+                <td>@dataa.RouteName</td>
+                <td><a asp-controller="home" asp-action="DeleteLocation" asp-route-id="@dataa.Id" class="btn-btn-primary">Delete</a></td>
+            </tr>
+        }
+
+    </tbody>
+</table>
+

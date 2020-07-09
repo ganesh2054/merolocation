@@ -1,0 +1,68 @@
+﻿@model IEnumerable<VehicleLocation.Models.Location>
+
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.3.1/leaflet.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.3.1/leaflet.js"></script>
+    <style>
+        #map {
+            position: absolute;
+            top: 55px;
+            right: 0;
+            bottom: 0;
+            left: 0;
+        }
+    </style>
+</head>
+<body>
+    <table id="locationtable" border="1">
+        <thead>
+
+        </thead>
+        <tbody>
+            @foreach (var loc in Model)
+            {
+                <tr>
+                    <td>@loc.longitude</td>
+                    <td>@loc.latitude</td>
+
+                </tr>
+            }
+        </tbody>
+    </table>
+    <div id="map"></div>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <p><a href="https://www.maptiler.com/copyright/" target="_blank">© MapTiler</a> <a href="https://www.openstreetmap.org/copyright" target="_blank">© OpenStreetMap contributors</a></p>
+    <script>
+       var la
+        var lo;
+        var i;
+          var markers = new Array();
+        $("#locationtable TBODY TR").each(function () {
+            var row = $(this);
+            var marker = {};
+            marker.lo =row.find("TD").eq(0).html();
+            marker.la= row.find("TD").eq(1).html();
+            markers.push(marker);
+        });
+
+
+        var map = L.map('map').setView([markers[0].la, markers[0].lo], 1);
+        L.tileLayer('https://api.maptiler.com/maps/streets/{z}/{x}/{y}.png?key=IEbBjXx2f8YmWhzRvKz4', {
+            tileSize: 512,
+            zoomOffset: -1,
+            minZoom: 12,
+            attribution: '<a href="https://www.maptiler.com/copyright/" target="_blank">© MapTiler</a> <a href="https://www.openstreetmap.org/copyright" target="_blank">© OpenStreetMap contributors</a>',
+            crossOrigin: true
+        }).addTo(map);
+        for (i = 0; i < markers.length; ++i)
+        {
+              L.marker([markers[i].la,markers[i].lo]).addTo(map);
+        }
+
+    </script>
+</body>
+</html>

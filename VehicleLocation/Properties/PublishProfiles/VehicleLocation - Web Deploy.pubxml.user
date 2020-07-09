@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+This file is used by the publish/package process of your Web project. You can customize the behavior of this process
+by editing this MSBuild file. In order to learn more about this please visit https://go.microsoft.com/fwlink/?LinkID=208121. 
+-->
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <TimeStampOfAssociatedLegacyPublishXmlFile />
+    <EncryptedPassword>AQAAANCMnd8BFdERjHoAwE/Cl+sBAAAAylfE+lF2oUiboxjO/dj66wAAAAACAAAAAAAQZgAAAAEAACAAAAC1RZmejs/BQJxNiortYN1s4xYBsyIVIh84Q3XxCoKzkQAAAAAOgAAAAAIAACAAAAA1sRrLGQJu6rcn/vMJ9rv6WicXrT8lievz4+eZd8I2+IAAAAB1l+HXzm6/YU0hAUxZu2MlCFgs4WrKUHo1ykuGS+KYIsY4FSuYPwFd1FwUYZpQ3LSuynbXNQhimVvoMG8MY0Jm4sDwP7WdttNQXPHgoR6S9Qk9NL6VkOnju26SdsNsGA7HoFprpeiwP1e9oCb12ohobfAwcKHw9zQ5TtuUtcqG5UAAAAABvffU2sl8VcYOIVixZREnOmMBlMxd6BdpCHcWHQS3iB8GJNLIEz2BfSpIGSAIPAPhh7dkHh4yEVxpHHJ8kPNi</EncryptedPassword>
+  </PropertyGroup>
+  <ItemGroup>
+    <DestinationConnectionStrings Include="LocationDBConnection">
+      <Value>Data Source=tcp:vehiclelocationdbserver.database.windows.net,1433%3bInitial Catalog=VehicleLocation_db%3bUser Id=admin1%40vehiclelocationdbserver%3bPassword=L%40michhane1</Value>
+    </DestinationConnectionStrings>
+  </ItemGroup>
+  <ItemGroup>
+    <EFMigrations Include="VehicleLocation.Models.AppDBContext">
+      <Value>Data Source=tcp:vehiclelocationdbserver.database.windows.net,1433%3bInitial Catalog=VehicleLocation_db%3bUser Id=admin1%40vehiclelocationdbserver%3bPassword=L%40michhane1</Value>
+    </EFMigrations>
+  </ItemGroup>
+</Project>

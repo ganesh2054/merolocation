@@ -1,0 +1,111 @@
+﻿@model IEnumerable<VehicleLocation.Models.Vehicle>
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+<!DOCTYPE>
+<html>
+<head>
+    <title>Get Vehicle Current Location </title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+    <style type="text/css">
+        #container {
+            color: #116997;
+            border: 2px solid #0b557b;
+            border-radius: 5px;
+        }
+
+        p {
+            font-size: 15px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <table id="locationtable" border="1">
+        <thead>
+
+        </thead>
+        <tbody>
+            @foreach (var loc in Model)
+            {
+                <tr>
+                    <td>@loc.IpAddress</td>
+                    <td>@loc.RouteName</td>
+
+                </tr>
+            }
+        </tbody>
+    </table>
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+          
+            window.setInterval(save, 8000);
+
+        });
+    </script>
+    <script type="text/javascript">
+
+        var ipaddress;
+        var routename;
+        var route;
+        var ip;
+        var i;
+          var vdetails = new Array();
+        $("#locationtable TBODY TR").each(function () {
+            var row = $(this);
+            var vdetail = {};
+            vdetail.ipaddress = row.find("TD").eq(0).html();
+            vdetail.routename = row.find("TD").eq(1).html();
+            vdetails.push(vdetail);
+        });
+      
+
+        function getIP(json) {
+           
+            for (i = 0; i < vdetails.length; ++i) {
+                if (vdetails[i].ipaddress == json.ip) {
+                    route = vdetails[i].routename;
+                    ip = vdetails[i].ipaddress;
+
+                    break;
+                }
+
+            }
+
+
+            alert(ip);
+
+
+            if (navigator.geolocation) {
+                //if (document.getElementById('location').innerHTML == '') {
+                navigator.geolocation.getCurrentPosition(visitorLocation);
+                //}
+            } else {
+                $('#location').html('This browser does not support Geolocation Service.');
+            }
+
+
+            function visitorLocation(position) {
+                var lat = position.coords.latitude;
+                var long = position.coords.longitude;
+
+
+                $.ajax({
+                    type: 'POST',
+                    url: '/home/CatchLocation',
+                    data: 'latitude=' + lat + '&longitude=' + long + '&IpAddress=' + ip+ '&RouteName='+route,
+                    success: function (address) {
+                        if (address) {
+                            $("#location").html(address);
+                        } else {
+                            $("#location").html('Not Available');
+                        }
+                    }
+                });
+            }
+        }
+
+    </script>
+    <script type="application/javascript" src="https://api.ipify.org?format=jsonp&callback=getIP"></script>
+</body>
+</html>
+
